@@ -1,359 +1,1238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UniApply SA · University Online Application & Education Portal</title>
-  <meta name="description" content="UniApply SA: 26 universities, 52 TVET colleges, APS calculator, NSFAS portal, bursaries, premium application support & career guide (NCAP).">
-  <link rel="icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230066cc'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle' fill='white' font-family='Arial'%3EU%3C/text%3E%3C/svg%3E">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-    body { background: #f4f7fc; color: #1e293b; line-height: 1.5; padding: 1rem; }
-    .container { max-width: 1300px; margin: 0 auto; background: white; border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.05); padding: 2rem 2rem 1rem; }
-    .header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 2rem; gap: 1rem; }
-    .logo-area { display: flex; align-items: center; gap: 0.75rem; }
-    .logo-icon { width: 40px; height: 40px; background: #0066cc; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.6rem; box-shadow: 0 8px 14px -6px #0066cc60; }
-    .logo-text { font-weight: 700; font-size: 1.5rem; letter-spacing: -0.02em; color: #0b2b4f; }
-    .logo-text span { color: #0066cc; }
-    .premium-badge { background: #ffd966; color: #664d00; padding: 0.3rem 1rem; border-radius: 30px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
-    .premium-badge a { color: #664d00; text-decoration: underline; font-weight: 700; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #0066cc; color: white; padding: 0.7rem 1.4rem; border-radius: 40px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: 0.2s; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,102,204,0.2); }
-    .btn:hover { background: #0052a3; transform: translateY(-2px); box-shadow: 0 10px 18px -6px #0066cc; }
-    .btn-outline { background: white; color: #0066cc; border: 1.5px solid #0066cc; box-shadow: none; }
-    .btn-outline:hover { background: #eef4ff; transform: translateY(-2px); }
-    .btn-yoco { background: #1e3b5c; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .btn-yoco:hover { background: #0b2b4f; }
-    .btn-whatsapp { background: #25D366; color: #0b2b4f; font-weight: 700; }
-    .btn-whatsapp:hover { background: #1ebe5a; }
-    .btn-nsfas { background: #ffb347; color: #1e293b; font-weight: 700; }
-    .btn-nsfas:hover { background: #f5a623; }
-    .ad-slot { background: #eef2f6; border: 1px dashed #b0c4de; border-radius: 16px; padding: 0.8rem 1.5rem; text-align: center; font-size: 0.8rem; color: #5f7d9c; margin: 1.5rem 0; }
-    .grid-2, .grid-3, .grid-4 { display: grid; gap: 1.5rem; }
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-    .card { background: white; border-radius: 24px; padding: 1.5rem 1.2rem; box-shadow: 0 6px 18px rgba(0,0,0,0.03); border: 1px solid #e2e8f0; transition: 0.15s; display: flex; flex-direction: column; }
-    .card:hover { border-color: #0066cc40; box-shadow: 0 16px 24px -8px rgba(0,102,204,0.15); }
-    .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; color: #0b2b4f; }
-    .card p, .card li { font-size: 0.9rem; color: #334155; }
-    .card ul { list-style: none; padding-left: 0; }
-    .card li { margin-bottom: 0.4rem; display: flex; align-items: flex-start; gap: 6px; }
-    .card li::before { content: "•"; color: #0066cc; font-weight: bold; font-size: 1.2rem; line-height: 1; }
-    .university-list, .tvet-list { max-height: 400px; overflow-y: auto; padding-right: 4px; scrollbar-width: thin; }
-    .university-item, .tvet-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #f0f4fa; }
-    .university-item:last-child, .tvet-item:last-child { border-bottom: none; }
-    .uni-link { background: none; border: none; color: #0066cc; font-weight: 600; font-size: 0.88rem; text-decoration: none; display: flex; align-items: center; gap: 6px; cursor: pointer; }
-    .uni-link:hover { text-decoration: underline; }
-    .badge-count { background: #e9f0fe; color: #0066cc; border-radius: 30px; padding: 0.2rem 0.9rem; font-size: 0.75rem; font-weight: 700; }
-    .aps-row { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.7rem; flex-wrap: wrap; }
-    .aps-row label { width: 100px; font-size: 0.85rem; font-weight: 600; }
-    .aps-row input { width: 80px; padding: 0.5rem 0.6rem; border: 1px solid #cbd5e1; border-radius: 30px; font-size: 0.9rem; text-align: center; }
-    .aps-result { background: #e6f0ff; border-radius: 30px; padding: 1rem 1.5rem; text-align: center; font-weight: 700; font-size: 1.2rem; margin: 1rem 0 0.5rem; color: #0066cc; }
-    .contact-strip { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; background: #0b2b4f; border-radius: 60px; padding: 1rem 2rem; margin: 2rem 0 1.5rem; color: white; }
-    .contact-strip a { color: white; text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 500; background: rgba(255,255,255,0.08); padding: 0.5rem 1rem; border-radius: 30px; }
-    .contact-strip a:hover { background: rgba(255,255,255,0.2); }
-    .small-note { font-size: 0.75rem; color: #64748b; margin-top: 0.5rem; }
-    footer { text-align: center; font-size: 0.8rem; color: #7b8ba3; border-top: 1px solid #e2e8f0; padding-top: 1.5rem; margin-top: 2rem; }
-    .icon-emoji { font-size: 1.2rem; }
-    .highlight { background: #fff6e5; border-left: 4px solid #ffb347; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.88rem; }
-    .policy-section { background: #f8fafc; border-radius: 20px; padding: 1.5rem; margin: 2rem 0; border: 1px solid #e2e8f0; }
-    .policy-section h3 { font-size: 1.1rem; margin-bottom: 0.8rem; color: #0b2b4f; }
-    .policy-section p { font-size: 0.88rem; color: #334155; margin-bottom: 0.6rem; }
-    .policy-section ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #334155; }
-    @media (max-width: 600px) { .container { padding: 1.2rem; } .header { flex-direction: column; align-items: flex-start; } .contact-strip { border-radius: 30px; flex-direction: column; align-items: stretch; text-align: center; } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UniApply SA | Apply to SA Universities & TVET Colleges 2026</title>
+<meta name="description" content="UniApply SA helps you apply to South African universities and TVET colleges for 2026. APS calculator, NSFAS guide, required documents, bursaries, and application support." />
+<meta name="keywords" content="SA universities 2026, TVET colleges application, University online application, NSFAS 2026, APS calculator, university closing dates, UNISA application, bursaries South Africa" />
+<meta name="google-adsense-account" content="ca-pub-5326242742377705" />
+<meta name="robots" content="index, follow" />
+<meta property="og:title" content="UniApply SA | Apply to SA Universities & TVET Colleges 2026" />
+<meta property="og:description" content="Your trusted guide to South African university and TVET applications, NSFAS funding, and APS scores." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_ZA" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EU%3C/text%3E%3C/svg%3E" />
+
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5326242742377705" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #ffffff;
+    color: #0f172a;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input, textarea, select { font-family: inherit; font-size: 1rem; }
+
+  /* ===== Layout ===== */
+  .container-site { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  .narrow { max-width: 800px; margin: 0 auto; }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    background: #2563eb; color: #fff; font-weight: 600; font-size: 0.9rem;
+    padding: 0.7rem 1.4rem; border-radius: 999px; transition: 0.2s;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25); white-space: nowrap;
+  }
+  .btn:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 10px 18px -6px #2563eb; }
+  .btn-outline {
+    background: #fff; color: #2563eb; border: 2px solid #2563eb; box-shadow: none;
+  }
+  .btn-outline:hover { background: #eff6ff; color: #1d4ed8; }
+  .btn-white { background: #fff; color: #0f172a; }
+  .btn-white:hover { background: #f1f5f9; }
+  .btn-wa { background: #25D366; color: #0b2b4f; font-weight: 700; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+  .btn-wa:hover { background: #1ebe5a; }
+  .btn-yoco { background: #0b2b4f; color: #fff; }
+  .btn-yoco:hover { background: #061a30; }
+  .btn-nsfas { background: #ffb347; color: #0b2b4f; font-weight: 700; }
+  .btn-nsfas:hover { background: #f5a623; }
+
+  /* ===== Cards ===== */
+  .card {
+    background: #fff; border-radius: 16px; padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(15,23,42,0.06);
+    border: 1px solid #e2e8f0;
+    transition: 0.2s;
+  }
+  .card:hover { border-color: rgba(37,99,235,0.35); box-shadow: 0 14px 28px -10px rgba(37,99,235,0.2); }
+
+  /* ===== Header ===== */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.96); backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; gap: 1rem; }
+  .logo { display: flex; align-items: center; gap: 0.6rem; }
+  .logo-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: #2563eb; color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.4rem; box-shadow: 0 8px 14px -6px rgba(37,99,235,0.5);
+  }
+  .logo-text { font-weight: 800; font-size: 1.35rem; color: #0f172a; letter-spacing: -0.02em; }
+  .logo-text span { color: #2563eb; }
+  nav.main-nav { display: flex; align-items: center; gap: 1.5rem; }
+  nav.main-nav a { font-size: 0.875rem; font-weight: 500; color: #334155; transition: 0.15s; }
+  nav.main-nav a:hover { color: #2563eb; }
+  .mobile-nav {
+    display: none; border-top: 1px solid #f1f5f9; overflow-x: auto; padding: 0.5rem 0;
+  }
+  .mobile-nav-inner { display: flex; gap: 1.2rem; white-space: nowrap; }
+  .mobile-nav-inner a { font-size: 0.78rem; font-weight: 500; color: #475569; }
+  .mobile-nav-inner a:hover { color: #2563eb; }
+
+  /* ===== Hero ===== */
+  .hero {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 70%);
+    border: 1px solid #dbeafe;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 2rem 0 0.5rem;
+  }
+  .hero .badge {
+    display: inline-block; background: #dbeafe; color: #2563eb;
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em;
+    padding: 0.35rem 0.9rem; border-radius: 999px; margin-bottom: 1rem;
+  }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1rem; }
+  .hero p { font-size: 1.05rem; color: #475569; max-width: 640px; margin-bottom: 1.5rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  /* ===== Ad slots ===== */
+  .ad-wrapper {
+    margin: 30px 0; min-height: 250px; background: #f8fafc;
+    border-radius: 12px; display: flex; justify-content: center; align-items: center;
+    overflow: hidden; border: 1px dashed #cbd5e1;
+  }
+  .ad-label { font-size: 0.7rem; color: #94a3b8; text-align: center; padding: 4px 0; }
+
+  /* ===== Section titles ===== */
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin: 2.5rem 0 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .section-head h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; color: #0f172a; }
+  .section-head a { color: #2563eb; font-weight: 600; font-size: 0.875rem; }
+  .section-head a:hover { text-decoration: underline; }
+
+  /* ===== Grids ===== */
+  .grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+  .grid-docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+
+  /* ===== University / TVET card ===== */
+  .inst-card {
+    background: #fff; border-radius: 16px; padding: 1rem 0.75rem;
+    border: 1px solid #e2e8f0; box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    transition: 0.2s; height: 100%;
+  }
+  .inst-card:hover { border-color: rgba(37,99,235,0.4); transform: translateY(-3px); box-shadow: 0 12px 24px -10px rgba(37,99,235,0.25); }
+  .inst-card .inst-logo {
+    width: 64px; height: 64px; border-radius: 12px; object-fit: contain;
+    background: #f1f5f9; padding: 8px; margin-bottom: 0.6rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; color: #2563eb; font-size: 1.4rem;
+  }
+  .inst-card h3 { font-size: 0.82rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.7rem; color: #0f172a; flex-grow: 1; }
+  .inst-card .inst-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1.5px solid #2563eb; color: #2563eb; font-weight: 600;
+    font-size: 0.72rem; padding: 0.35rem 0.8rem; border-radius: 999px;
+    transition: 0.2s; width: 100%;
+  }
+  .inst-card .inst-btn:hover { background: #2563eb; color: #fff; }
+
+  /* ===== Premium banner ===== */
+  .premium-banner {
+    background: #0b2b4f; color: #fff; border-radius: 20px;
+    padding: 1.75rem; margin: 1.5rem 0;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .premium-banner h2 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.35rem; }
+  .premium-banner p { color: #cbd5e1; font-size: 0.875rem; }
+  .premium-banner .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+  /* ===== Attention box ===== */
+  .attention {
+    background: #fffbeb; border-left: 5px solid #f59e0b; border-radius: 16px;
+    padding: 1.5rem; margin: 2rem 0;
+  }
+  .attention h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 1rem; }
+  .attention-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.7rem; }
+  .attention-item { background: #fff; border-radius: 12px; padding: 0.7rem 0.9rem; font-size: 0.85rem; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+  .attention-item strong { color: #0f172a; }
+
+  /* ===== About box ===== */
+  .about-box { background: #f8fafc; border-radius: 20px; padding: 2rem; margin: 2rem 0; }
+  .about-box h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; }
+  .about-box p { font-size: 0.9rem; color: #334155; margin-bottom: 0.9rem; }
+  .about-box .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+
+  /* ===== Tables ===== */
+  table.simple { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+  table.simple thead tr { background: #f1f5f9; }
+  table.simple th { text-align: left; padding: 0.75rem; font-weight: 700; color: #0f172a; }
+  table.simple td { padding: 0.75rem; border-bottom: 1px solid #f1f5f9; color: #334155; }
+  table.simple td.primary { color: #2563eb; font-weight: 700; }
+
+  /* ===== APS ===== */
+  .aps-box { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 16px rgba(15,23,42,0.06); border: 1px solid #e2e8f0; }
+  .aps-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
+  .aps-row label { width: 110px; font-size: 0.85rem; font-weight: 600; }
+  .aps-row input {
+    width: 90px; padding: 0.55rem 0.75rem; border: 1px solid #cbd5e1;
+    border-radius: 999px; text-align: center; font-size: 0.95rem;
+    transition: 0.15s;
+  }
+  .aps-row input:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+  .aps-row .level { font-size: 0.78rem; color: #64748b; }
+  .aps-result { background: #eff6ff; border-radius: 16px; padding: 1.25rem; text-align: center; margin-top: 1.25rem; }
+  .aps-result .label { font-size: 0.8rem; color: #64748b; }
+  .aps-result .score { font-size: 2.5rem; font-weight: 900; color: #2563eb; line-height: 1.1; }
+  .aps-result .sub { font-size: 0.75rem; color: #94a3b8; }
+
+  /* ===== Contact cards ===== */
+  .contact-card { text-align: center; padding: 1.5rem 1rem; }
+  .contact-card .em { font-size: 2rem; margin-bottom: 0.5rem; }
+  .contact-card h3 { font-weight: 800; margin-bottom: 0.25rem; }
+  .contact-card p { font-size: 0.85rem; color: #64748b; }
+
+  /* ===== Form ===== */
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1;
+    border-radius: 12px; transition: 0.15s;
+  }
+  .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+
+  /* ===== Footer ===== */
+  footer { background: #0f172a; color: #cbd5e1; margin-top: 3rem; }
+  .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; padding: 2.5rem 0; }
+  .footer-grid h3 { color: #fff; font-size: 1.05rem; font-weight: 800; margin-bottom: 0.75rem; }
+  .footer-grid h4 { color: #fff; font-size: 0.9rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .footer-grid p { font-size: 0.85rem; line-height: 1.6; }
+  .footer-grid ul { list-style: none; }
+  .footer-grid li { margin-bottom: 0.4rem; }
+  .footer-grid a { font-size: 0.85rem; color: #cbd5e1; transition: 0.15s; }
+  .footer-grid a:hover { color: #fff; }
+  .footer-bottom { border-top: 1px solid #1e293b; padding: 1rem 0; text-align: center; font-size: 0.78rem; color: #64748b; }
+  .footer-bottom a { color: #94a3b8; text-decoration: underline; }
+
+  /* ===== Pages (SPA sections) ===== */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===== Misc ===== */
+  .breadcrumb { font-size: 0.8rem; color: #64748b; margin: 1rem 0; }
+  .breadcrumb a { color: #2563eb; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .page-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .lead { font-size: 1.05rem; color: #475569; margin-bottom: 1.5rem; }
+  .prose h2 { font-size: 1.4rem; font-weight: 800; margin: 1.75rem 0 0.75rem; }
+  .prose h3 { font-size: 1.1rem; font-weight: 700; margin: 1.25rem 0 0.5rem; }
+  .prose p { margin-bottom: 1rem; color: #334155; }
+  .prose ul, .prose ol { padding-left: 1.5rem; margin-bottom: 1rem; color: #334155; }
+  .prose li { margin-bottom: 0.4rem; }
+  .prose .tip {
+    background: #fffbeb; border-left: 4px solid #f59ef0; border-radius: 12px;
+    padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.9rem;
+  }
+  .prose .tip-blue { background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 12px; padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.9rem; }
+
+  @media (max-width: 768px) {
+    nav.main-nav { display: none; }
+    .mobile-nav { display: block; }
+    .hero { padding: 2rem 1.25rem; }
+    .header-inner { padding: 0.6rem 0; }
+  }
+</style>
 </head>
 <body>
-<div class="container">
-  <!-- HEADER -->
-  <div class="header">
-    <div class="logo-area">
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="container-site header-inner">
+    <a href="#home" class="logo" onclick="showPage('home')">
       <div class="logo-icon">U</div>
       <div class="logo-text">UniApply<span>SA</span></div>
-    </div>
-    <div class="premium-badge">
-      ⭐ Premium – we apply for you · <a href="https://docs.google.com/forms/d/e/1FAIpQLSfh-3X-oVaKEO7Sm7Jlwtutf7cI4ioxjSBDNPnenq9IIcVW3w/viewform?usp=header" target="_blank">subscribe</a>
+    </a>
+    <nav class="main-nav">
+      <a href="#home" onclick="showPage('home')">Home</a>
+      <a href="#aps" onclick="showPage('aps')">APS Calculator</a>
+      <a href="#nsfas" onclick="showPage('nsfas')">NSFAS</a>
+      <a href="#documents" onclick="showPage('documents')">Documents</a>
+      <a href="#howto" onclick="showPage('howto')">How to Apply</a>
+      <a href="#contact" onclick="showPage('contact')">Contact</a>
+    </nav>
+    <a href="https://wa.me/27731725505" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp Us</a>
+  </div>
+  <div class="mobile-nav">
+    <div class="container-site mobile-nav-inner">
+      <a href="#home" onclick="showPage('home')">Home</a>
+      <a href="#aps" onclick="showPage('aps')">APS</a>
+      <a href="#nsfas" onclick="showPage('nsfas')">NSFAS</a>
+      <a href="#documents" onclick="showPage('documents')">Documents</a>
+      <a href="#howto" onclick="showPage('howto')">How to Apply</a>
+      <a href="#fees" onclick="showPage('fees')">Fees</a>
+      <a href="#dates" onclick="showPage('dates')">Closing Dates</a>
+      <a href="#tvet" onclick="showPage('tvet')">TVET</a>
+      <a href="#unisa" onclick="showPage('unisa')">UNISA</a>
+      <a href="#uj" onclick="showPage('uj')">UJ</a>
+      <a href="#tut" onclick="showPage('tut')">TUT</a>
+      <a href="#status" onclick="showPage('status')">Status</a>
+      <a href="#about" onclick="showPage('about')">About</a>
+      <a href="#privacy" onclick="showPage('privacy')">Privacy</a>
+      <a href="#terms" onclick="showPage('terms')">Terms</a>
+      <a href="#contact" onclick="showPage('contact')">Contact</a>
     </div>
   </div>
+</header>
 
-  <!-- AdSense top -->
-  <div class="ad-slot">📢 Google AdSense placeholder — high‑quality education content</div>
+<!-- ============ MAIN ============ -->
+<main>
 
-  <!-- HERO + quick actions -->
-  <div class="grid-2" style="margin-bottom: 2rem;">
-    <div class="card" style="background: linear-gradient(145deg, #ffffff, #f5faff);">
-      <h3>🎓 Your future starts here</h3>
-      <p style="margin-bottom: 1rem;">Access all 26 South African universities, 52 TVET colleges, APS calculator, NSFAS, bursaries & premium application support.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="------------------------------------put---------ads------" target="_blank" class="btn btn-yoco">💳Explore Bursaries </a>
-        <a href="https://wa.me/27731725505" target="_blank" class="btn btn-whatsapp">WhatsApp</a>
-        <a href="https://ncap.careerhelp.org.za/" target="_blank" class="btn btn-outline">📋 Career guide (NCAP)</a>
-      </div>
-      <div class="small-note" style="margin-top: 1rem;">✉️ Email: <strong>uniapplysa7@gmail.com</strong> · WhatsApp: <strong>073 172 5505</strong></div>
-    </div>
-    <div class="card" style="background: #eef6ff;">
-      <h3>📌 Premium application service</h3>
-      <p>Our <strong>premium service</strong> is where we apply for you. We handle university & TVET applications, APS calculations, document checks, and follow-ups. The career guide (NCAP) is optional and free to access.</p>
-      <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 10px;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfh-3X-oVaKEO7Sm7Jlwtutf7cI4ioxjSBDNPnenq9IIcVW3w/viewform?usp=header" target="_blank" class="btn">🔔 Subscribe to Premium</a>
-        <a href="https://pay.yoco.com/uniapply-sa" target="_blank" class="btn btn-outline">💳 Secure payment</a>
-      </div>
-      <div class="highlight" style="margin-top: 1rem;">
-        ⚡ After payment, send proof to WhatsApp <strong>073 172 5505</strong> or email <strong>uniapplysa7@gmail.com</strong> to activate premium.
+<!-- ==================== HOME PAGE ==================== -->
+<section id="page-home" class="page active">
+  <div class="container-site">
+    <!-- HERO -->
+    <div class="hero">
+      <span class="badge">APPLICATIONS OPEN FOR 2026</span>
+      <h1>Apply to SA Universities &amp; TVET Colleges 2026</h1>
+      <p>Your complete guide to South African university and TVET college applications. Free APS calculator, NSFAS funding info, required documents, closing dates, and premium application support.</p>
+      <div class="hero-actions">
+        <a href="#howto" onclick="showPage('howto')" class="btn">Start Application →</a>
+        <a href="#aps" onclick="showPage('aps')" class="btn btn-outline">Calculate APS Score</a>
+        <a href="https://wa.me/27731725505" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp 073 172 5505</a>
       </div>
     </div>
-  </div>
 
-  <!-- NSFAS + BURSARIES + APS -->
-  <div class="grid-3" style="margin-bottom: 2rem;">
-    <!-- NSFAS card -->
-    <div class="card" style="background: #fffaf0;">
-      <h3>💰 NSFAS</h3>
-      <p>National Student Financial Aid Scheme — apply for funding for university or TVET.</p>
-      <a href="https://www.nsfas.org.za/" target="_blank" class="btn btn-nsfas" style="margin-top: 0.8rem; width: 100%;">🔗 Open official NSFAS portal</a>
-      <div class="small-note" style="margin-top: 0.6rem;">Applications open annually – check website.</div>
+    <!-- ===== AD PLACEMENT 1: Right after hero ===== -->
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
-    <!-- BURSARIES -->
-    <div class="card">
-      <h3>🏅 Bursaries SA</h3>
-      <ul>
-        <li><strong>Eskom</strong> – engineering, tech</li>
-        <li><strong>Sasol</strong> – STEM, commerce</li>
-        <li><strong>Transnet</strong> – logistics, engineering</li>
-        <li><strong>Department of Education</strong> – teaching</li>
-        <li><strong>Allan Gray</strong> – commerce, actuarial</li>
-        <li><strong>NRF</strong> – postgraduate research</li>
-      </ul>
-      <div class="small-note" style="margin-top: 0.6rem;">Visit official bursary pages for deadlines.</div>
-    </div>
-    <!-- APS CALCULATOR -->
-    <div class="card">
-      <h3>🧮 APS Calculator</h3>
-      <p style="font-size: 0.85rem;">Enter your marks (0–100) for 6 subjects:</p>
-      <div id="apsInputs">
-        <div class="aps-row"><label>Subject 1</label><input type="number" id="s1" min="0" max="100" value="70"></div>
-        <div class="aps-row"><label>Subject 2</label><input type="number" id="s2" min="0" max="100" value="65"></div>
-        <div class="aps-row"><label>Subject 3</label><input type="number" id="s3" min="0" max="100" value="60"></div>
-        <div class="aps-row"><label>Subject 4</label><input type="number" id="s4" min="0" max="100" value="75"></div>
-        <div class="aps-row"><label>Subject 5</label><input type="number" id="s5" min="0" max="100" value="55"></div>
-        <div class="aps-row"><label>Subject 6</label><input type="number" id="s6" min="0" max="100" value="80"></div>
-      </div>
-      <button class="btn" style="width:100%; margin-top: 0.5rem;" onclick="calculateAPS()">Calculate APS</button>
-      <div class="aps-result" id="apsResult">APS: 0</div>
-    </div>
-  </div>
 
-  <!-- 26 UNIVERSITIES & 52 TVET COLLEGES -->
-  <div class="grid-2" style="margin-bottom: 2rem;">
-    <!-- UNIVERSITIES -->
-    <div class="card">
-      <h3>🏛️ 26 South African Universities <span class="badge-count">26</span></h3>
-      <p style="font-size:0.85rem; margin-bottom:0.5rem;">Click a university to open its official website.</p>
-      <div class="university-list" id="universityList"></div>
-    </div>
-    <!-- TVET COLLEGES -->
-    <div class="card">
-      <h3>🔧 52 TVET Colleges <span class="badge-count">52</span></h3>
-      <p style="font-size:0.85rem; margin-bottom:0.5rem;">Click a college to open its official website.</p>
-      <div class="tvet-list" id="tvetList"></div>
-    </div>
-  </div>
-
-  <!-- GUIDE: DOCUMENTS & ATTENTION -->
-  <div class="card" style="margin-bottom: 2rem;">
-    <h3>📘 Application Guide – documents & important notes</h3>
-    <div class="grid-2" style="margin-top: 0.8rem;">
+    <!-- PREMIUM BANNER -->
+    <div class="premium-banner">
       <div>
-        <h4 style="font-size:1rem; margin-bottom: 0.5rem;">📄 Required documents (usually)</h4>
-        <ul style="list-style: none;">
-          <li> Certified copy of ID (or passport)</li>
-          <li> National Senior Certificate (NSC) / Grade 12 results</li>
-          <li> Academic record (if transferring)</li>
-          <li> Proof of residence</li>
-          <li> Proof of income (parents/guardian) for NSFAS</li>
-          <li> Testimonial / conduct letter (sometimes)</li>
-        </ul>
+        <h2>⭐ Premium Service — We Apply For You</h2>
+        <p>Let our team handle your university &amp; TVET applications. Optional career guide (NCAP) included. Pay via Yoco.</p>
       </div>
-      <div>
-        <h4 style="font-size:1rem; margin-bottom: 0.5rem;">⚠️ Pay attention to</h4>
-        <ul style="list-style: none;">
-          <li>• <strong>Closing dates</strong> – universities: 30 Sept (varies); TVET: 30 Sept (Jan intake)</li>
-          <li>• <strong>APS score</strong> – meet minimum requirements for your chosen course</li>
-          <li>• <strong>NSFAS</strong> – apply early (usually opens Sept–Jan)</li>
-          <li>• <strong>Online applications</strong> – most institutions have online portals</li>
-          <li>• <strong>Application fee</strong> – some universities charge R100–R300</li>
-          <li>• <strong>Email & WhatsApp</strong> – keep checking for updates</li>
-        </ul>
+      <div class="actions">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfh-3X-oVaKEO7Sm7Jlwtutf7cI4ioxjSBDNPnenq9IIcVW3w/viewform?usp=header" target="_blank" rel="noopener" class="btn btn-white">Subscribe</a>
+        <a href="https://pay.yoco.com/uniapply-sa" target="_blank" rel="noopener" class="btn btn-outline" style="border-color:#fff;color:#fff;background:transparent;">Pay via Yoco</a>
       </div>
     </div>
-    <div class="highlight" style="margin-top: 1rem;">
-      🧭 Need us to apply for you? Subscribe to Premium via the form, pay via Yoco, then WhatsApp or email us.
+
+    <!-- ===== SECTION 1: UNIVERSITIES ===== -->
+    <div class="section-head">
+      <h2>🏛️ 26 South African Universities</h2>
+      <a href="#dates" onclick="showPage('dates')">View closing dates →</a>
+    </div>
+    <div id="university-grid" class="grid-cards"></div>
+
+    <!-- ===== AD PLACEMENT 2: After 5 universities ===== -->
+    <div class="ad-wrapper" id="ad-after-unis">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <!-- ===== SECTION 2: TVET COLLEGES ===== -->
+    <div class="section-head">
+      <h2>🔧 52 TVET Colleges</h2>
+      <a href="#tvet" onclick="showPage('tvet')">TVET guide →</a>
+    </div>
+    <div id="tvet-grid" class="grid-cards"></div>
+
+    <!-- ===== SECTION 3: DOCUMENTS ===== -->
+    <div class="section-head">
+      <h2>📄 Documents You Need to Apply</h2>
+      <a href="#documents" onclick="showPage('documents')">Full guide →</a>
+    </div>
+    <div class="grid-docs" id="doc-grid"></div>
+
+    <!-- ===== SECTION 4: ATTENTION ===== -->
+    <div class="attention">
+      <h2>⚠️ Pay Attention To</h2>
+      <div class="attention-grid">
+        <div class="attention-item"> <strong>Closing dates</strong> — most close 30 Sept</div>
+        <div class="attention-item"> <strong>APS score</strong> — meet minimum requirements</div>
+        <div class="attention-item"> <strong>NSFAS</strong> — apply early Sept–Jan</div>
+        <div class="attention-item"> <strong>Online applications</strong> — most portals online</div>
+        <div class="attention-item"> <strong>Application fee</strong> — R100–R300</div>
+        <div class="attention-item"> <strong>Email &amp; WhatsApp</strong> — check updates</div>
+      </div>
+      <p style="font-size:0.8rem;color:#64748b;margin-top:0.9rem;">Contact us: <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> · WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a></p>
+    </div>
+
+    <!-- ===== SECTION 5: ABOUT ===== -->
+    <div class="about-box">
+      <h2> About UniApply SA &amp; Policy</h2>
+      <p>UniApply SA is an independent education support portal helping South African students access university and TVET information, calculate APS, find bursaries, and apply via our premium service.</p>
+      <p><strong>Premium service:</strong> We apply on your behalf to universities and TVET colleges. The career guide (NCAP) is an optional free external resource. Payment is processed securely via Yoco. After payment, send proof to <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> or WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a> to activate the service.</p>
+      <p><strong>Policy:</strong> All university and TVET links direct to official websites. We are not responsible for external content. Premium fees are non-refundable once the application process has started. We do not guarantee admission; final decisions rest with the institutions. Personal information submitted via the Google Form is used solely for application purposes.</p>
+      <div class="actions">
+        <a href="#about" onclick="showPage('about')" class="btn btn-outline">Read More</a>
+        <a href="#privacy" onclick="showPage('privacy')" class="btn btn-outline">Privacy Policy</a>
+        <a href="#terms" onclick="showPage('terms')" class="btn btn-outline">Terms</a>
+      </div>
     </div>
   </div>
+</section>
 
-  <!-- ABOUT & POLICY SECTION -->
-  <div class="policy-section">
-    <h3>📜 About UniApply SA & Policy</h3>
-    <p><strong>UniApply SA</strong> is an independent education support portal helping South African students access university and TVET information, calculate APS, find bursaries, and apply via our premium service.</p>
-    <p><strong>Premium service:</strong> We apply on your behalf to universities and TVET colleges. The career guide (NCAP) is an optional free external resource. Payment is processed securely via Yoco. After payment, you must send proof to <strong>uniapplysa7@gmail.com</strong> or WhatsApp <strong>073 172 5505</strong> to activate the service.</p>
-    <p><strong>Policy:</strong></p>
+<!-- ==================== ABOUT ==================== -->
+<section id="page-about" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / About</div>
+    <h1 class="page-title">About UniApply SA</h1>
+    <p class="lead">UniApply SA is an independent South African education portal dedicated to helping Grade 12 learners, matriculants, and returning students navigate tertiary applications.</p>
+    <p>Founded with the mission to simplify access to higher education, we provide free tools and premium services for university and TVET college applications. Our platform covers all 26 public universities in South Africa and 52 TVET colleges, offering quick access to official websites, closing dates, application fees, and required documents. We also provide an APS score calculator, a comprehensive NSFAS funding guide, and a bursary directory — all completely free.</p>
+
+    <!-- AD PLACEMENT 3 (article, after 2nd paragraph) -->
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Our Premium Service</h2>
+    <p>For students who want extra support, our premium service allows our team to apply on your behalf. We handle the submission, document verification, and follow-ups with institutions. The premium package includes an optional career guide through the NCAP (National Career Advice Portal), helping you choose the right qualification for your future.</p>
+    <p>To subscribe, complete our Google Form, pay securely via Yoco, and send proof of payment to uniapplysa7@gmail.com or WhatsApp 073 172 5505. Our team will then begin your application process.</p>
+    <h2>Why Students Trust Us</h2>
     <ul>
-      <li>All university and TVET links direct to official websites. We are not responsible for external content.</li>
-      <li>Premium fees are non-refundable once the application process has started.</li>
-      <li>We do not guarantee admission; final decisions rest with the institutions.</li>
-      <li>Personal information submitted via the Google Form is used solely for application purposes.</li>
-      <li>NSFAS applications are handled directly through the official NSFAS portal.</li>
-      <li>For any queries, contact <strong>uniapplysa7@gmail.com</strong> or WhatsApp <strong>073 172 5505</strong>.</li>
+      <li>All information is sourced from official institution websites.</li>
+      <li>We never charge for basic information — it's always free.</li>
+      <li>Our premium service is transparent and affordable.</li>
+      <li>We respond quickly via WhatsApp and email.</li>
+      <li>We respect your privacy — see our Privacy Policy.</li>
     </ul>
+    <div class="tip-blue">
+      <strong>Get in touch:</strong> 📧 <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> · 📱 WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a>
+    </div>
+    <a href="#contact" onclick="showPage('contact')" class="btn">Contact Us</a>
   </div>
+</section>
 
-  <!-- CONTACT STRIP -->
-  <div class="contact-strip">
-    <a href="https://wa.me/27731725505" target="_blank">WhatsApp: 073 172 5505</a>
-    <a href="https://pay.yoco.com/uniapply-sa" target="_blank">💳 Yoco payment</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfh-3X-oVaKEO7Sm7Jlwtutf7cI4ioxjSBDNPnenq9IIcVW3w/viewform?usp=header" target="_blank">🔔 Subscribe to Premium</a>
-    <a href="mailto:uniapplysa7@gmail.com">✉️ uniapplysa7@gmail.com</a>
+<!-- ==================== PRIVACY POLICY ==================== -->
+<section id="page-privacy" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Privacy Policy</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p style="font-size:0.85rem;color:#64748b;">Last updated: January 2026</p>
+    <p>UniApply SA ("we", "our", "us") operates the website uniapplysa.co.za. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services.</p>
+    <h2>1. Information We Collect</h2>
+    <p>We collect information you voluntarily provide via our Google Form, including your name, contact details, educational background, and documents for application purposes. We also collect non-personal data such as browser type, IP address, and pages visited through cookies and analytics tools.</p>
+    <h2>2. Google AdSense &amp; Third-Party Advertising</h2>
+    <p>We use Google AdSense to display advertisements. Google and its partners may use cookies (including the DoubleClick DART cookie) to serve ads based on your prior visits to our site and other sites on the internet. You may opt out of personalised advertising by visiting Google's Ads Settings at <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener" style="color:#2563eb;">https://www.google.com/settings/ads</a>.</p>
+    <p>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.</p>
+    <h2>3. Cookies</h2>
+    <p>Our website uses cookies to enhance user experience and analyse site traffic. You can disable cookies in your browser settings, but this may affect site functionality.</p>
+    <h2>4. Document Handling</h2>
+    <p>We do <strong>not</strong> store your personal documents on our servers. Documents submitted via our Google Form are stored securely in Google's infrastructure and are only accessed by our team for the purpose of processing your application. Once your application is complete, documents are deleted upon request.</p>
+    <h2>5. Data Sharing</h2>
+    <p>We do not sell, trade, or rent your personal information to third parties. Information is only shared with the institutions you are applying to, as required for your application.</p>
+    <h2>6. Your Rights</h2>
+    <p>You have the right to access, correct, or delete your personal information at any time. To exercise these rights, contact us at <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a>.</p>
+    <h2>7. Contact</h2>
+    <p>For any questions about this Privacy Policy, contact us at:</p>
+    <ul>
+      <li>📧 Email: <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a></li>
+      <li>📱 WhatsApp: <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a></li>
+    </ul>
+    <p style="font-size:0.85rem;color:#64748b;margin-top:2rem;">By using UniApply SA, you consent to this Privacy Policy.</p>
   </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 UniApply SA – -------------. All university & college links direct to official websites.</p>
-    <p style="margin-top:0.5rem;">🔒 Secure payments via Yoco · NSFAS official portal · Pty (Ltd)</p>
-  </footer>
-</div>
+<!-- ==================== TERMS ==================== -->
+<section id="page-terms" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Terms</div>
+    <h1 class="page-title">Terms of Service</h1>
+    <p style="font-size:0.85rem;color:#64748b;">Last updated: January 2026</p>
+    <p>By accessing and using UniApply SA, you agree to these Terms of Service. Please read them carefully before using our website or premium services.</p>
+    <h2>1. Use of Service</h2>
+    <p>UniApply SA provides free educational information and optional premium application support. You agree to use our services only for lawful purposes and to provide accurate information when applying.</p>
+    <h2>2. Premium Service</h2>
+    <p>Our premium service is a paid service where we submit applications on your behalf. Fees are non-refundable once the application process has started. We do not guarantee admission to any institution — final decisions rest with the institutions.</p>
+    <h2>3. Accuracy of Information</h2>
+    <p>While we strive to keep all information accurate and up to date, university closing dates, fees, and requirements may change. Always verify details on official institution websites.</p>
+    <h2>4. External Links</h2>
+    <p>Our website contains links to external institutions and third-party resources. We are not responsible for the content or privacy practices of these external sites.</p>
+    <h2>5. Limitation of Liability</h2>
+    <p>UniApply SA is not liable for any loss or damage arising from the use of our website or services, including missed deadlines or rejected applications.</p>
+    <h2>6. Changes to Terms</h2>
+    <p>We reserve the right to update these terms at any time. Continued use of our website constitutes acceptance of the updated terms.</p>
+    <h2>7. Contact</h2>
+    <p>For questions about these terms, contact <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> or WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a>.</p>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="page-contact" class="page">
+  <div class="container-site narrow" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Contact</div>
+    <h1 class="page-title">Contact Us</h1>
+    <p class="lead">We're here to help with your 2026 university and TVET applications. Reach out via WhatsApp, email, or the form below.</p>
+    <div class="grid-3" style="margin-bottom:2rem;">
+      <a href="https://wa.me/27731725505" target="_blank" rel="noopener" class="card contact-card">
+        <div class="em">💬</div>
+        <h3>WhatsApp</h3>
+        <p>073 172 5505</p>
+      </a>
+      <a href="mailto:uniapplysa7@gmail.com" class="card contact-card">
+        <div class="em">📧</div>
+        <h3>Email</h3>
+        <p>uniapplysa7@gmail.com</p>
+      </a>
+      <a href="https://pay.yoco.com/uniapply-sa" target="_blank" rel="noopener" class="card contact-card">
+        <div class="em">💳</div>
+        <h3>Pay Premium</h3>
+        <p>Secure via Yoco</p>
+      </a>
+    </div>
+
+    <!-- AD PLACEMENT 3 -->
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2 style="font-size:1.4rem;font-weight:800;margin:2rem 0 0.75rem;">Premium Subscription Form</h2>
+    <p style="margin-bottom:1rem;color:#475569;">To subscribe to our premium application service, complete the Google Form below. After payment via Yoco, send proof to WhatsApp or email.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfh-3X-oVaKEO7Sm7Jlwtutf7cI4ioxjSBDNPnenq9IIcVW3w/viewform?usp=header" target="_blank" rel="noopener" class="btn">Open Premium Form</a>
+
+    <h2 style="font-size:1.4rem;font-weight:800;margin:2rem 0 0.75rem;">Send Us a Message</h2>
+    <form onsubmit="event.preventDefault(); alert('Thanks! We will get back to you shortly via WhatsApp or email.');">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder="Your full name" required />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="5" placeholder="How can we help?" required></textarea>
+      </div>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ==================== APS CALCULATOR ==================== -->
+<section id="page-aps" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / APS Calculator</div>
+    <h1 class="page-title">APS Score Calculator 2026</h1>
+    <p class="lead">Your Admission Point Score (APS) is calculated from your top 6 subjects in the National Senior Certificate (NSC). Enter your marks below to calculate your APS instantly.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="aps-box">
+      <h2 style="font-size:1.15rem;margin-bottom:1rem;">Enter Your Marks (0–100)</h2>
+      <div id="aps-inputs"></div>
+      <div class="aps-result">
+        <div class="label">Your APS Score</div>
+        <div class="score" id="aps-score">0</div>
+        <div class="sub">Out of a possible 42 points</div>
+      </div>
+    </div>
+
+    <h2>How APS Works</h2>
+    <p>Each of your six best subjects is awarded points based on your achievement level: 90–100% = 7 points, 80–89% = 6, 70–79% = 5, 60–69% = 4, 50–59% = 3, 40–49% = 2, and 30–39% = 1. Your APS is the sum of these points.</p>
+    <p>Most universities require a minimum APS of 24–30 for diploma programmes, and 30–42 for degree programmes. Competitive courses like medicine, engineering, and law often require 38+.</p>
+    <p>Note: Some universities exclude Life Orientation, or only count it as 1 point. Always check the specific APS rules of your target institution.</p>
+  </div>
+</section>
+
+<!-- ==================== NSFAS ==================== -->
+<section id="page-nsfas" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / NSFAS Guide</div>
+    <h1 class="page-title">NSFAS Application Guide 2026</h1>
+    <p class="lead">The National Student Financial Aid Scheme (NSFAS) provides funding for eligible South African students at public universities and TVET colleges. This guide walks you through the 2026 application process.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Who Qualifies for NSFAS?</h2>
+    <p>NSFAS funding is available to South African citizens from households with a combined annual income of R350,000 or less. Students with disabilities qualify with a household income of up to R600,000. You must be accepted or registered at a public university or TVET college.</p>
+    <p>NSFAS covers tuition, accommodation, transport, and a personal care allowance. It is a bursary, not a loan — you do not need to pay it back.</p>
+    <h2>Required Documents</h2>
+    <ul>
+      <li>Certified copy of your ID (or birth certificate if under 16)</li>
+      <li>Certified copies of parents' or guardians' IDs</li>
+      <li>Proof of household income (payslips, SASSA letter, or affidavit)</li>
+      <li>Consent form signed by parents/guardians</li>
+      <li>Latest academic results</li>
+      <li>Disability evidence (if applicable)</li>
+    </ul>
+    <h2>How to Apply</h2>
+    <ol>
+      <li>Visit the official NSFAS portal at nsfas.org.za</li>
+      <li>Create a myNSFAS account with your ID number and email</li>
+      <li>Complete the online application form</li>
+      <li>Upload certified supporting documents</li>
+      <li>Submit and track your application status</li>
+    </ol>
+    <div class="tip">⚠️ <strong>Important:</strong> NSFAS applications for 2026 typically open in September 2025 and close in January 2026. Apply early to avoid delays.</div>
+    <a href="https://www.nsfas.org.za/" target="_blank" rel="noopener" class="btn btn-nsfas">Open NSFAS Portal →</a>
+    <h2>Need Help?</h2>
+    <p>Our premium service can assist with your NSFAS application alongside your university or TVET applications. Contact us at <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> or WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a>.</p>
+  </div>
+</section>
+
+<!-- ==================== CLOSING DATES ==================== -->
+<section id="page-dates" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Closing Dates</div>
+    <h1 class="page-title">University Closing Dates 2026</h1>
+    <p class="lead">Below are the application closing dates for South African universities for the 2026 academic year. Dates may change — always confirm on the official university website.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <table class="simple">
+      <thead><tr><th>University</th><th>Closing Date</th></tr></thead>
+      <tbody id="dates-table"></tbody>
+    </table>
+
+    <div class="tip">⚠️ <strong>Tip:</strong> Apply as early as possible. Many universities close applications before the stated deadline if programmes fill up.</div>
+  </div>
+</section>
+
+<!-- ==================== HOW TO APPLY ==================== -->
+<section id="page-howto" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / How to Apply</div>
+    <h1 class="page-title">How to Apply Online</h1>
+    <p class="lead">Applying to a South African university or TVET college is now done online. Follow this step-by-step guide to complete your 2026 application successfully.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Step 1: Choose Your Institution</h2>
+    <p>Decide which universities or TVET colleges you want to apply to. You can apply to multiple institutions. Check the courses offered, APS requirements, and location.</p>
+    <h2>Step 2: Gather Your Documents</h2>
+    <p>Before starting, scan or photograph certified copies of your ID, NSC results, proof of residence, and proof of income (for NSFAS). Save them as PDF or JPEG files.</p>
+    <h2>Step 3: Create an Account</h2>
+    <p>Go to the institution's official website and create an applicant account. You'll need a valid email address and South African ID number.</p>
+    <h2>Step 4: Complete the Application</h2>
+    <p>Fill in your personal details, academic history, and course choices. Upload your documents. Pay the application fee (if required) via EFT or card.</p>
+    <h2>Step 5: Submit and Track</h2>
+    <p>Submit your application and save your reference number. Check your email and the applicant portal regularly for updates. Some institutions may request additional documents.</p>
+    <div class="tip-blue">
+      <h3 style="margin-top:0;">Need us to apply for you?</h3>
+      <p>Our premium service handles the entire application process on your behalf. Pay via Yoco and send proof to WhatsApp 073 172 5505.</p>
+      <a href="https://pay.yoco.com/uniapply-sa" target="_blank" rel="noopener" class="btn">Pay for Premium Service</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DOCUMENTS ==================== -->
+<section id="page-documents" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Required Documents</div>
+    <h1 class="page-title">Required Documents</h1>
+    <p class="lead">Before applying to any South African university or TVET college, make sure you have the following documents ready. Missing documents can delay or disqualify your application.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div id="doc-list" style="margin:1.5rem 0;"></div>
+
+    <div class="tip">⚠️ <strong>Tip:</strong> Always certify your documents at a police station, post office, or commissioner of oaths. Keep both digital copies (PDF) and physical copies.</div>
+  </div>
+</section>
+
+<!-- ==================== TVET ==================== -->
+<section id="page-tvet" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / TVET</div>
+    <h1 class="page-title">TVET Colleges Application 2026</h1>
+    <p class="lead">TVET (Technical and Vocational Education and Training) colleges offer practical, career-focused qualifications in fields like engineering, business, hospitality, and IT. There are 52 public TVET colleges in South Africa.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Entry Requirements</h2>
+    <p>For NC(V) programmes, you need Grade 9. For Report 191 (NATED) programmes, you need Grade 12. Some courses have specific subject requirements.</p>
+    <h2>How to Apply</h2>
+    <p>Applications are usually done online via each college's website, or in person at the campus. You'll need your ID, latest results, and proof of residence. NSFAS funding is available for qualifying students.</p>
+    <h2>List of 52 TVET Colleges</h2>
+    <ul id="tvet-list"></ul>
+    <div class="tip-blue">
+      <p>Need help with your TVET application? Our premium service can apply on your behalf. Contact <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> or WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== UNISA ==================== -->
+<section id="page-unisa" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / UNISA</div>
+    <h1 class="page-title">UNISA Application 2026</h1>
+    <p class="lead">The University of South Africa (UNISA) is the largest open distance learning institution in Africa. Applications for 2026 typically open in September and close in October.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>How to Apply to UNISA</h2>
+    <ol>
+      <li>Visit the official UNISA website at unisa.ac.za</li>
+      <li>Click on "Apply for Admission"</li>
+      <li>Create a myUNISA account with your ID number</li>
+      <li>Complete the online application form</li>
+      <li>Upload certified copies of your documents</li>
+      <li>Pay the application fee (R135 for online applications)</li>
+      <li>Submit and save your student number</li>
+    </ol>
+    <h2>Required Documents</h2>
+    <ul>
+      <li>Certified copy of ID</li>
+      <li>NSC results or equivalent</li>
+      <li>Academic record (if applicable)</li>
+      <li>Proof of payment of application fee</li>
+    </ul>
+    <a href="https://www.unisa.ac.za" target="_blank" rel="noopener" class="btn">Visit UNISA Official Site →</a>
+  </div>
+</section>
+
+<!-- ==================== UJ ==================== -->
+<section id="page-uj" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / UJ</div>
+    <h1 class="page-title">UJ Application 2026</h1>
+    <p class="lead">The University of Johannesburg (UJ) is one of South Africa's largest contact universities. Applications for 2026 close on 30 September 2025.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Minimum APS Requirements</h2>
+    <p>UJ's minimum APS for degree programmes is typically 28–30, and for diplomas 24–26. Competitive programmes like engineering, health sciences, and law require 34+.</p>
+    <h2>How to Apply</h2>
+    <ol>
+      <li>Visit uj.ac.za and click "Apply"</li>
+      <li>Create an account on the UJ online application portal</li>
+      <li>Complete the application form with your details and course choices</li>
+      <li>Upload certified documents</li>
+      <li>Pay the R200 application fee</li>
+      <li>Submit and track your application online</li>
+    </ol>
+    <a href="https://www.uj.ac.za" target="_blank" rel="noopener" class="btn">Visit UJ Official Site →</a>
+  </div>
+</section>
+
+<!-- ==================== TUT ==================== -->
+<section id="page-tut" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / TUT</div>
+    <h1 class="page-title">TUT Application 2026</h1>
+    <p class="lead">Tshwane University of Technology (TUT) is one of South Africa's largest universities of technology. Applications for 2026 close on 30 September 2025.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>Minimum APS Requirements</h2>
+    <p>TUT's minimum APS for diploma programmes is typically 20–24, and for bachelor's degrees 24–28. Competitive programmes require higher scores.</p>
+    <h2>How to Apply</h2>
+    <ol>
+      <li>Visit tut.ac.za and click "Apply Online"</li>
+      <li>Complete the online application form</li>
+      <li>Upload certified copies of ID and results</li>
+      <li>Pay the R240 application fee</li>
+      <li>Submit and save your reference number</li>
+    </ol>
+    <a href="https://www.tut.ac.za" target="_blank" rel="noopener" class="btn">Visit TUT Official Site →</a>
+  </div>
+</section>
+
+<!-- ==================== APPLICATION FEES ==================== -->
+<section id="page-fees" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Fees</div>
+    <h1 class="page-title">Application Fees 2026</h1>
+    <p class="lead">Most South African universities charge an application fee, while TVET colleges are usually free. Fees are non-refundable, even if your application is unsuccessful.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <table class="simple">
+      <thead><tr><th>Institution</th><th>Application Fee</th></tr></thead>
+      <tbody id="fees-table"></tbody>
+    </table>
+
+    <h2>How to Pay</h2>
+    <p>Application fees are usually paid via EFT (electronic funds transfer) or online card payment. Always keep your proof of payment, as you may need to upload it with your application.</p>
+  </div>
+</section>
+
+<!-- ==================== STATUS CHECK ==================== -->
+<section id="page-status" class="page">
+  <div class="container-site narrow prose" style="padding:2.5rem 16px;">
+    <div class="breadcrumb"><a href="#home" onclick="showPage('home')">Home</a> / Status Check</div>
+    <h1 class="page-title">Check Your Application Status</h1>
+    <p class="lead">After submitting your application, you can track its progress online through the institution's applicant portal. Here's how.</p>
+
+    <div class="ad-wrapper">
+      <ins class="adsbygoogle"
+           style="display:block;width:100%"
+           data-ad-client="ca-pub-5326242742377705"
+           data-ad-slot="6102630023"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h2>How to Check Status</h2>
+    <ol>
+      <li>Go to the institution's official website</li>
+      <li>Click on "Check Application Status" or "Applicant Portal"</li>
+      <li>Log in with your ID number and student/reference number</li>
+      <li>View your application status (Pending, Accepted, Rejected, Waitlisted)</li>
+      <li>Check your email regularly for updates</li>
+    </ol>
+    <h2>What the Statuses Mean</h2>
+    <ul>
+      <li><strong>Pending:</strong> Your application is being processed.</li>
+      <li><strong>Accepted:</strong> Congratulations! You've been admitted.</li>
+      <li><strong>Waitlisted:</strong> You may be admitted if space becomes available.</li>
+      <li><strong>Rejected:</strong> Unfortunately, you did not meet the requirements.</li>
+      <li><strong>Conditional:</strong> Admission depends on final results.</li>
+    </ul>
+    <h2>Need Help?</h2>
+    <p>If you're unsure about your status, contact the institution directly. You can also reach us at <a href="mailto:uniapplysa7@gmail.com" style="color:#2563eb;">uniapplysa7@gmail.com</a> or WhatsApp <a href="https://wa.me/27731725505" target="_blank" style="color:#2563eb;">073 172 5505</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container-site footer-grid">
+    <div>
+      <h3>UniApply SA</h3>
+      <p>Your trusted guide to South African universities, TVET colleges, NSFAS funding, APS scores, and bursaries. We help students apply with confidence.</p>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="#aps" onclick="showPage('aps')">APS Calculator</a></li>
+        <li><a href="#nsfas" onclick="showPage('nsfas')">NSFAS Guide 2026</a></li>
+        <li><a href="#documents" onclick="showPage('documents')">Required Documents</a></li>
+        <li><a href="#howto" onclick="showPage('howto')">How to Apply Online</a></li>
+        <li><a href="#fees" onclick="showPage('fees')">Application Fees</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Institutions</h4>
+      <ul>
+        <li><a href="#dates" onclick="showPage('dates')">University Closing Dates</a></li>
+        <li><a href="#tvet" onclick="showPage('tvet')">TVET Colleges</a></li>
+        <li><a href="#unisa" onclick="showPage('unisa')">UNISA Application</a></li>
+        <li><a href="#uj" onclick="showPage('uj')">UJ Application</a></li>
+        <li><a href="#tut" onclick="showPage('tut')">TUT Application</a></li>
+        <li><a href="#status" onclick="showPage('status')">Check Status</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about" onclick="showPage('about')">About Us</a></li>
+        <li><a href="#contact" onclick="showPage('contact')">Contact</a></li>
+        <li><a href="#privacy" onclick="showPage('privacy')">Privacy Policy</a></li>
+        <li><a href="#terms" onclick="showPage('terms')">Terms of Service</a></li>
+      </ul>
+      <div style="margin-top:1rem;font-size:0.85rem;">
+        <p>📧 <a href="mailto:uniapplysa7@gmail.com">uniapplysa7@gmail.com</a></p>
+        <p> WhatsApp: <a href="https://wa.me/27731725505" target="_blank">073 172 5505</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom container-site">
+    © <span id="year"></span> UniApply SA. All rights reserved. This site uses Google AdSense to serve ads. See our <a href="#privacy" onclick="showPage('privacy')">Privacy Policy</a>.
+  </div>
+</footer>
 
 <script>
-  // ---------- 26 UNIVERSITIES ----------
-  const uniList = [
-    "University of Cape Town|https://www.uct.ac.za",
-    "University of the Witwatersrand|https://www.wits.ac.za",
-    "Stellenbosch University|https://www.sun.ac.za",
-    "University of Pretoria|https://www.up.ac.za",
-    "University of KwaZulu-Natal|https://www.ukzn.ac.za",
-    "University of Johannesburg|https://www.uj.ac.za",
-    "North-West University|https://www.nwu.ac.za",
-    "University of the Free State|https://www.ufs.ac.za",
-    "Rhodes University|https://www.ru.ac.za",
-    "University of the Western Cape|https://www.uwc.ac.za",
-    "Nelson Mandela University|https://www.mandela.ac.za",
-    "University of Limpopo|https://www.ul.ac.za",
-    "University of Venda|https://www.univen.ac.za",
-    "University of Zululand|https://www.unizulu.ac.za",
-    "Walter Sisulu University|https://www.wsu.ac.za",
-    "University of Fort Hare|https://www.ufh.ac.za",
-    "Sefako Makgatho Health Sciences University|https://www.smu.ac.za",
-    "Sol Plaatje University|https://www.spu.ac.za",
-    "University of Mpumalanga|https://www.ump.ac.za",
-    "Mangosuthu University of Technology|https://www.mut.ac.za",
-    "Cape Peninsula University of Technology|https://www.cput.ac.za",
-    "Durban University of Technology|https://www.dut.ac.za",
-    "Tshwane University of Technology|https://www.tut.ac.za",
-    "Vaal University of Technology|https://www.vut.ac.za",
-    "Central University of Technology|https://www.cut.ac.za",
-    "University of South Africa (UNISA)|https://www.unisa.ac.za"
-  ];
-
-  const uniContainer = document.getElementById('universityList');
-  uniList.forEach(item => {
-    const [name, url] = item.split('|');
-    const div = document.createElement('div');
-    div.className = 'university-item';
-    div.innerHTML = `<span style="font-weight:500;">${name}</span>
-      <a href="${url}" target="_blank" class="uni-link">Visit site <span style="font-size:1.2rem;">↗</span></a>`;
-    uniContainer.appendChild(div);
-  });
-
-  // ---------- 52 TVET COLLEGES ----------
-  const tvetColleges = [
-    "Boland TVET College|https://www.bolandcollege.co.za",
-    "Buffalo City TVET College|https://www.bccollege.co.za",
-    "Capricorn TVET College|https://www.capricorncollege.co.za",
-    "Central Johannesburg TVET College|https://www.cjc.edu.za",
-    "Coastal KZN TVET College|https://www.coastalkzn.co.za",
-    "College of Cape Town|https://www.cct.edu.za",
-    "Durban TVET College|https://www.dut.ac.za",
-    "Eastcape Midlands TVET College|https://www.emcol.co.za",
-    "Ekurhuleni East TVET College|https://www.eecollege.co.za",
-    "Ekurhuleni West TVET College|https://www.ewc.edu.za",
-    "Elangeni TVET College|https://www.elangeni.edu.za",
-    "Esayidi TVET College|https://www.esayidi.co.za",
-    "False Bay TVET College|https://www.falsebaycollege.co.za",
-    "Flavius Mareka TVET College|https://www.flaviusmareka.co.za",
-    "Gert Sibande TVET College|https://www.gscollege.co.za",
-    "Goldfields TVET College|https://www.goldfieldscollege.co.za",
-    "Greater Tzaneen TVET College|https://www.gtc.edu.za",
-    "Harry Gwala TVET College|https://www.harrygwalacollege.co.za",
-    "Ikhala TVET College|https://www.ikhalacollege.co.za",
-    "Ingwe TVET College|https://www.ingwecollege.co.za",
-    "King Hintsa TVET College|https://www.kinghintsa.co.za",
-    "King Sabata Dalindyebo TVET College|https://www.ksdcollege.co.za",
-    "Koffiefontein TVET College|https://www.koffiefonteincollege.co.za",
-    "Lephalale TVET College|https://www.lephalalecollege.co.za",
-    "Letaba TVET College|https://www.letabacollege.co.za",
-    "Lovedale TVET College|https://www.lovedalecollege.co.za",
-    "Majuba TVET College|https://www.majuba.edu.za",
-    "Maluti TVET College|https://www.maluticollege.co.za",
-    "Mnambithi TVET College|https://www.mnambithicollege.co.za",
-    "Mopani South East TVET College|https://www.mopani.ac.za",
-    "Motheo TVET College|https://www.motheo.co.za",
-    "Mthashana TVET College|https://www.mthashana.co.za",
-    "Nkangala TVET College|https://www.nkangalacollege.co.za",
-    "Northern Cape Rural TVET College|https://www.ncruralcollege.co.za",
-    "Northern Cape Urban TVET College|https://www.ncucollege.co.za",
-    "Northlink TVET College|https://www.northlink.co.za",
-    "Orbit TVET College|https://www.orbitcollege.co.za",
-    "Port Elizabeth TVET College|https://www.pecollege.co.za",
-    "Sedibeng TVET College|https://www.sedibengcollege.co.za",
-    "Sekhukhune TVET College|https://www.sekhukhunecollege.co.za",
-    "South Cape TVET College|https://www.southcapecollege.co.za",
-    "South West Gauteng TVET College|https://www.swgc.co.za",
-    "Taletso TVET College|https://www.taletso.co.za",
-    "Thekwini TVET College|https://www.thekwini.edu.za",
-    "Tshwane North TVET College|https://www.tnc.edu.za",
-    "Tshwane South TVET College|https://www.tsc.edu.za",
-    "Umfolozi TVET College|https://www.umfolozicollege.co.za",
-    "Umgungundlovu TVET College|https://www.umgungundlovu.co.za",
-    "Vhembe TVET College|https://www.vhembecollege.co.za",
-    "Vuselela TVET College|https://www.vuselela.co.za",
-    "Waterberg TVET College|https://www.waterbergcollege.co.za",
-    "West Coast TVET College|https://www.westcoastcollege.co.za",
-    "Western TVET College|https://www.westerncollege.co.za"
-  ];
-
-  const tvetContainer = document.getElementById('tvetList');
-  tvetColleges.forEach(item => {
-    const [name, url] = item.split('|');
-    const div = document.createElement('div');
-    div.className = 'tvet-item';
-    div.innerHTML = `<span style="font-weight:500;">${name}</span>
-      <a href="${url}" target="_blank" class="uni-link">Visit site <span style="font-size:1.2rem;">↗</span></a>`;
-    tvetContainer.appendChild(div);
-  });
-
-  // ---------- APS CALCULATOR ----------
-  function calculateAPS() {
-    const s1 = Number(document.getElementById('s1').value) || 0;
-    const s2 = Number(document.getElementById('s2').value) || 0;
-    const s3 = Number(document.getElementById('s3').value) || 0;
-    const s4 = Number(document.getElementById('s4').value) || 0;
-    const s5 = Number(document.getElementById('s5').value) || 0;
-    const s6 = Number(document.getElementById('s6').value) || 0;
-
-    function point(mark) {
-      if (mark >= 90) return 7;
-      if (mark >= 80) return 6;
-      if (mark >= 70) return 5;
-      if (mark >= 60) return 4;
-      if (mark >= 50) return 3;
-      if (mark >= 40) return 2;
-      return 1;
-    }
-
-    const total = point(s1) + point(s2) + point(s3) + point(s4) + point(s5) + point(s6);
-    document.getElementById('apsResult').innerText = `APS: ${total}`;
+/* ==================== PAGE NAVIGATION ==================== */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  // Re-push AdSense ads when switching pages
+  try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (e) {}
+}
 
-  calculateAPS();
+/* ==================== UNIVERSITIES DATA ==================== */
+const universities = [
+  { name: "Vaal University of Technology", url: "https://www.vut.ac.za", initials: "VUT" },
+  { name: "Central University of Technology", url: "https://www.cut.ac.za", initials: "CUT" },
+  { name: "UNISA", url: "https://www.unisa.ac.za", initials: "UNISA" },
+  { name: "Tshwane University of Technology", url: "https://www.tut.ac.za", initials: "TUT" },
+  { name: "University of Johannesburg", url: "https://www.uj.ac.za", initials: "UJ" },
+  { name: "University of the Witwatersrand", url: "https://www.wits.ac.za", initials: "WITS" },
+  { name: "University of Pretoria", url: "https://www.up.ac.za", initials: "UP" },
+  { name: "University of the Western Cape", url: "https://www.uwc.ac.za", initials: "UWC" },
+  { name: "Cape Peninsula University of Technology", url: "https://www.cput.ac.za", initials: "CPUT" },
+  { name: "Durban University of Technology", url: "https://www.dut.ac.za", initials: "DUT" },
+  { name: "University of Cape Town", url: "https://www.uct.ac.za", initials: "UCT" },
+  { name: "Stellenbosch University", url: "https://www.sun.ac.za", initials: "SUN" },
+  { name: "University of KwaZulu-Natal", url: "https://www.ukzn.ac.za", initials: "UKZN" },
+  { name: "North-West University", url: "https://www.nwu.ac.za", initials: "NWU" },
+  { name: "University of the Free State", url: "https://www.ufs.ac.za", initials: "UFS" },
+  { name: "Rhodes University", url: "https://www.ru.ac.za", initials: "RU" },
+  { name: "Nelson Mandela University", url: "https://www.mandela.ac.za", initials: "NMU" },
+  { name: "University of Limpopo", url: "https://www.ul.ac.za", initials: "UL" },
+  { name: "University of Venda", url: "https://www.univen.ac.za", initials: "UNIVEN" },
+  { name: "University of Zululand", url: "https://www.unizulu.ac.za", initials: "UNIZULU" },
+  { name: "Walter Sisulu University", url: "https://www.wsu.ac.za", initials: "WSU" },
+  { name: "University of Fort Hare", url: "https://www.ufh.ac.za", initials: "UFH" },
+  { name: "Sefako Makgatho Health Sciences University", url: "https://www.smu.ac.za", initials: "SMU" },
+  { name: "Sol Plaatje University", url: "https://www.spu.ac.za", initials: "SPU" },
+  { name: "University of Mpumalanga", url: "https://www.ump.ac.za", initials: "UMP" },
+  { name: "Mangosuthu University of Technology", url: "https://www.mut.ac.za", initials: "MUT" }
+];
+
+/* ==================== TVET COLLEGES DATA ==================== */
+const tvetColleges = [
+  { name: "Waterberg TVET College", url: "https://www.waterbergcollege.co.za", initials: "WTV" },
+  { name: "West Coast TVET College", url: "https://www.westcoastcollege.co.za", initials: "WCC" },
+  { name: "Western TVET College", url: "https://www.westerncollege.co.za", initials: "WTC" },
+  { name: "Boland TVET College", url: "https://www.bolandcollege.co.za", initials: "BTC" },
+  { name: "Coastal KZN TVET College", url: "https://www.coastalkzn.co.za", initials: "CKZN" },
+  { name: "College of Cape Town", url: "https://www.cct.edu.za", initials: "CCT" },
+  { name: "Durban TVET College", url: "https://www.dut.ac.za", initials: "DTC" },
+  { name: "Eastcape Midlands TVET College", url: "https://www.emcol.co.za", initials: "EMC" },
+  { name: "Ekurhuleni East TVET College", url: "https://www.eecollege.co.za", initials: "EEC" },
+  { name: "Ekurhuleni West TVET College", url: "https://www.ewc.edu.za", initials: "EWC" },
+  { name: "Elangeni TVET College", url: "https://www.elangeni.edu.za", initials: "ELC" },
+  { name: "Esayidi TVET College", url: "https://www.esayidi.co.za", initials: "ESC" },
+  { name: "False Bay TVET College", url: "https://www.falsebaycollege.co.za", initials: "FBC" },
+  { name: "Flavius Mareka TVET College", url: "https://www.flaviusmareka.co.za", initials: "FMC" },
+  { name: "Gert Sibande TVET College", url: "https://www.gscollege.co.za", initials: "GSC" },
+  { name: "Goldfields TVET College", url: "https://www.goldfieldscollege.co.za", initials: "GFC" },
+  { name: "Greater Tzaneen TVET College", url: "https://www.gtc.edu.za", initials: "GTC" },
+  { name: "Harry Gwala TVET College", url: "https://www.harrygwalacollege.co.za", initials: "HGC" },
+  { name: "Ikhala TVET College", url: "https://www.ikhalacollege.co.za", initials: "IKC" },
+  { name: "Ingwe TVET College", url: "https://www.ingwecollege.co.za", initials: "ING" },
+  { name: "King Hintsa TVET College", url: "https://www.kinghintsa.co.za", initials: "KHC" },
+  { name: "King Sabata Dalindyebo TVET College", url: "https://www.ksdcollege.co.za", initials: "KSD" },
+  { name: "Lephalale TVET College", url: "https://www.lephalalecollege.co.za", initials: "LTC" },
+  { name: "Letaba TVET College", url: "https://www.letabacollege.co.za", initials: "LET" },
+  { name: "Lovedale TVET College", url: "https://www.lovedalecollege.co.za", initials: "LTC2" },
+  { name: "Majuba TVET College", url: "https://www.majuba.edu.za", initials: "MJT" },
+  { name: "Maluti TVET College", url: "https://www.maluticollege.co.za", initials: "MAL" },
+  { name: "Mnambithi TVET College", url: "https://www.mnambithicollege.co.za", initials: "MNC" },
+  { name: "Mopani South East TVET College", url: "https://www.mopani.ac.za", initials: "MSE" },
+  { name: "Motheo TVET College", url: "https://www.motheo.co.za", initials: "MOT" },
+  { name: "Mthashana TVET College", url: "https://www.mthashana.co.za", initials: "MTH" },
+  { name: "Nkangala TVET College", url: "https://www.nkangalacollege.co.za", initials: "NKA" },
+  { name: "Northern Cape Rural TVET College", url: "https://www.ncruralcollege.co.za", initials: "NCR" },
+  { name: "Northern Cape Urban TVET College", url: "https://www.ncucollege.co.za", initials: "NCU" },
+  { name: "Northlink TVET College", url: "https://www.northlink.co.za", initials: "NLC" },
+  { name: "Orbit TVET College", url: "https://www.orbitcollege.co.za", initials: "ORB" },
+  { name: "Port Elizabeth TVET College", url: "https://www.pecollege.co.za", initials: "PET" },
+  { name: "Sedibeng TVET College", url: "https://www.sedibengcollege.co.za", initials: "SED" },
+  { name: "Sekhukhune TVET College", url: "https://www.sekhukhunecollege.co.za", initials: "SEK" },
+  { name: "South Cape TVET College", url: "https://www.southcapecollege.co.za", initials: "SCC" },
+  { name: "South West Gauteng TVET College", url: "https://www.swgc.co.za", initials: "SWG" },
+  { name: "Taletso TVET College", url: "https://www.taletso.co.za", initials: "TAL" },
+  { name: "Thekwini TVET College", url: "https://www.thekwini.edu.za", initials: "TKC" },
+  { name: "Tshwane North TVET College", url: "https://www.tnc.edu.za", initials: "TNC" },
+  { name: "Tshwane South TVET College", url: "https://www.tsc.edu.za", initials: "TSC" },
+  { name: "Umfolozi TVET College", url: "https://www.umfolozicollege.co.za", initials: "UMF" },
+  { name: "Umgungundlovu TVET College", url: "https://www.umgungundlovu.co.za", initials: "UMG" },
+  { name: "Vhembe TVET College", url: "https://www.vhembecollege.co.za", initials: "VHE" },
+  { name: "Vuselela TVET College", url: "https://www.vuselela.co.za", initials: "VUS" },
+  { name: "Waterberg TVET College", url: "https://www.waterbergcollege.co.za", initials: "WTB" },
+  { name: "West Coast TVET College", url: "https://www.westcoastcollege.co.za", initials: "WCT" },
+  { name: "Western TVET College", url: "https://www.westerncollege.co.za", initials: "WTC" }
+];
+
+/* ==================== DOCUMENTS DATA ==================== */
+const documents = [
+  { title: "Certified ID Copy", desc: "A certified copy of your South African ID or passport. Certification must be less than 3 months old.", icon: "🪪" },
+  { title: "NSC / Grade 12 Results", desc: "Your National Senior Certificate results, or Grade 11 results if you're still in school.", icon: "📜" },
+  { title: "Academic Record", desc: "If transferring from another institution, include your full academic record.", icon: "📋" },
+  { title: "Proof of Residence", desc: "A recent utility bill, lease agreement, or affidavit confirming your address.", icon: "🏠" },
+  { title: "Proof of Income", desc: "Parents' or guardians' payslips or SASSA letter (required for NSFAS).", icon: "💵" },
+  { title: "Testimonial Letter", desc: "A conduct letter from your school or previous institution (sometimes required).", icon: "✉️" },
+  { title: "Marriage Certificate", desc: "If applicable, for students who are married.", icon: "💍" },
+  { title: "Disability Evidence", desc: "Medical report or disability grant letter, if applicable.", icon: "♿" }
+];
+
+/* ==================== CLOSING DATES ==================== */
+const closingDates = [
+  { name: "University of Cape Town (UCT)", date: "31 July 2025" },
+  { name: "University of the Witwatersrand (Wits)", date: "30 September 2025" },
+  { name: "Stellenbosch University", date: "31 July 2025" },
+  { name: "University of Pretoria (UP)", date: "30 June 2025" },
+  { name: "University of KwaZulu-Natal (UKZN)", date: "30 September 2025" },
+  { name: "University of Johannesburg (UJ)", date: "30 September 2025" },
+  { name: "North-West University (NWU)", date: "30 September 2025" },
+  { name: "University of the Free State (UFS)", date: "30 September 2025" },
+  { name: "Rhodes University", date: "30 September 2025" },
+  { name: "University of the Western Cape (UWC)", date: "30 September 2025" },
+  { name: "Nelson Mandela University", date: "30 September 2025" },
+  { name: "University of Limpopo", date: "30 September 2025" },
+  { name: "UNISA", date: "15 October 2025" },
+  { name: "Tshwane University of Technology (TUT)", date: "30 September 2025" },
+  { name: "Cape Peninsula University of Technology (CPUT)", date: "30 September 2025" },
+  { name: "Durban University of Technology (DUT)", date: "30 September 2025" },
+  { name: "Vaal University of Technology (VUT)", date: "30 September 2025" },
+  { name: "Central University of Technology (CUT)", date: "30 September 2025" }
+];
+
+/* ==================== FEES ==================== */
+const fees = [
+  { name: "University of Cape Town (UCT)", fee: "R100 – R300" },
+  { name: "University of the Witwatersrand (Wits)", fee: "R100" },
+  { name: "Stellenbosch University", fee: "R100" },
+  { name: "University of Pretoria (UP)", fee: "R300" },
+  { name: "University of KwaZulu-Natal (UKZN)", fee: "R250" },
+  { name: "University of Johannesburg (UJ)", fee: "R200" },
+  { name: "North-West University (NWU)", fee: "Free" },
+  { name: "University of the Free State (UFS)", fee: "R220" },
+  { name: "Rhodes University", fee: "R100" },
+  { name: "University of the Western Cape (UWC)", fee: "R150" },
+  { name: "Nelson Mandela University", fee: "R100" },
+  { name: "UNISA", fee: "R135" },
+  { name: "Tshwane University of Technology (TUT)", fee: "R240" },
+  { name: "Cape Peninsula University of Technology (CPUT)", fee: "R150" },
+  { name: "Durban University of Technology (DUT)", fee: "R200" },
+  { name: "Vaal University of Technology (VUT)", fee: "R100" },
+  { name: "Central University of Technology (CUT)", fee: "R150" },
+  { name: "TVET Colleges", fee: "Free (most)" }
+];
+
+/* ==================== RENDER FUNCTIONS ==================== */
+function makeInstCard(inst) {
+  return `
+    <div class="inst-card">
+      <div class="inst-logo">${inst.initials}</div>
+      <h3>${inst.name}</h3>
+      <a href="${inst.url}" target="_blank" rel="noopener" class="inst-btn">Visit Site ↗</a>
+    </div>`;
+}
+
+function renderUniversities() {
+  const grid = document.getElementById('university-grid');
+  if (!grid) return;
+  grid.innerHTML = universities.map(makeInstCard).join('');
+}
+
+function renderTVET() {
+  const grid = document.getElementById('tvet-grid');
+  if (grid) grid.innerHTML = tvetColleges.map(makeInstCard).join('');
+  const list = document.getElementById('tvet-list');
+  if (list) {
+    list.innerHTML = tvetColleges.map(c =>
+      `<li>• <a href="${c.url}" target="_blank" rel="noopener" style="color:#2563eb;">${c.name}</a></li>`
+    ).join('');
+  }
+}
+
+function renderDocuments() {
+  const grid = document.getElementById('doc-grid');
+  if (grid) {
+    grid.innerHTML = documents.map(d => `
+      <div class="card" style="display:flex;gap:0.9rem;align-items:flex-start;">
+        <div style="font-size:2rem;line-height:1;">${d.icon}</div>
+        <div>
+          <h3 style="font-size:0.95rem;font-weight:800;margin-bottom:0.25rem;">${d.title}</h3>
+          <p style="font-size:0.82rem;color:#64748b;">${d.desc}</p>
+        </div>
+      </div>`).join('');
+  }
+  const list = document.getElementById('doc-list');
+  if (list) {
+    list.innerHTML = documents.map(d => `
+      <div class="card" style="margin-bottom:1rem;">
+        <h3 style="font-size:1rem;font-weight:800;margin-bottom:0.3rem;">✅ ${d.title}</h3>
+        <p style="font-size:0.88rem;color:#475569;">${d.desc}</p>
+      </div>`).join('');
+  }
+}
+
+function renderDates() {
+  const tbody = document.getElementById('dates-table');
+  if (!tbody) return;
+  tbody.innerHTML = closingDates.map(d =>
+    `<tr><td>${d.name}</td><td class="primary">${d.date}</td></tr>`
+  ).join('');
+}
+
+function renderFees() {
+  const tbody = document.getElementById('fees-table');
+  if (!tbody) return;
+  tbody.innerHTML = fees.map(f =>
+    `<tr><td>${f.name}</td><td class="primary">${f.fee}</td></tr>`
+  ).join('');
+}
+
+/* ==================== APS CALCULATOR ==================== */
+const apsSubjects = [
+  { label: "Subject 1", value: 70 },
+  { label: "Subject 2", value: 65 },
+  { label: "Subject 3", value: 60 },
+  { label: "Subject 4", value: 75 },
+  { label: "Subject 5", value: 55 },
+  { label: "Subject 6", value: 80 }
+];
+
+function point(m) {
+  if (m >= 90) return 7;
+  if (m >= 80) return 6;
+  if (m >= 70) return 5;
+  if (m >= 60) return 4;
+  if (m >= 50) return 3;
+  if (m >= 40) return 2;
+  return 1;
+}
+
+function renderAPS() {
+  const container = document.getElementById('aps-inputs');
+  if (!container) return;
+  container.innerHTML = apsSubjects.map((s, i) => `
+    <div class="aps-row">
+      <label>${s.label}</label>
+      <input type="number" min="0" max="100" value="${s.value}" data-index="${i}" oninput="updateAPS()" />
+      <span class="level" id="level-${i}">Level ${point(s.value)}</span>
+    </div>`).join('');
+  updateAPS();
+}
+
+function updateAPS() {
+  const inputs = document.querySelectorAll('#aps-inputs input');
+  let total = 0;
+  inputs.forEach((input, i) => {
+    const m = Number(input.value) || 0;
+    const lvl = point(m);
+    total += lvl;
+    const levelEl = document.getElementById('level-' + i);
+    if (levelEl) levelEl.textContent = 'Level ' + lvl;
+  });
+  const scoreEl = document.getElementById('aps-score');
+  if (scoreEl) scoreEl.textContent = total;
+}
+
+/* ==================== INIT ==================== */
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('year').textContent = new Date().getFullYear();
+  renderUniversities();
+  renderTVET();
+  renderDocuments();
+  renderDates();
+  renderFees();
+  renderAPS();
+});
 </script>
 </body>
 </html>
